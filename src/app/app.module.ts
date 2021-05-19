@@ -23,7 +23,6 @@ import { UserRegistrationFormComponent } from './user-registration-form/user-reg
   declarations: [
     AppComponent,
     UserRegistrationFormComponent
-    // UserRegistrationFormComponent
   ],
   imports: [
     BrowserModule,
