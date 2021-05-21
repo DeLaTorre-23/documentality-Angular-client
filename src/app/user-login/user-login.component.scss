@@ -1,0 +1,21 @@
+.main-wrap {
+  text-align: center;
+}
+
+.mat-card-header {
+  margin-top: 20px;
+}
+
+/*
+.close-button {
+  display: flex;
+  justify-content: flex-end;
+}
+*/
+
+// Tablet
+@media all and (min-width: 768px) {
+  .registration__card {
+    width: 400px;
+  }
+}

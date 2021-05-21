@@ -1,10 +1,10 @@
 <!-- src/app/user-registration-form/user-registration-form.component.html -->
-<mat-card>
-  <mat-card-header>
+<mat-card class="main-wrap">
+  <mat-card-header class="main-header">
     <mat-card-title>Sign Up!</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form>
+    <form class="form-container">
       <mat-form-field>
         <input
           matInput
@@ -46,9 +46,17 @@
       </mat-form-field>
     </form>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions class="button-container">
     <button mat-raised-button (click)="registerUser()" color="primary">
       Sign Up
     </button>
   </mat-card-actions>
 </mat-card>
+<button
+  class="close-button"
+  mat-icon-button
+  color="basic"
+  [mat-dialog-close]="true"
+>
+  <mat-icon>close</mat-icon>
+</button>

@@ -24,7 +24,7 @@ export class UserRegistrationService {
   * @param userDetails 
   */
   public userRegistration(userDetails: any): Observable<any> {
-    console.log(userDetails);
+    // console.log(userDetails);
     return this.http
     .post(apiUrl + 'users', userDetails)
     .pipe(
