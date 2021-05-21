@@ -1,5 +1,11 @@
 <!-- src/app/user-registration-form/user-registration-form.component.html -->
+
 <mat-card class="main-wrap">
+  <div class="close-icon-container">
+    <button mat-icon-button color="basic" [mat-dialog-close]="true">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
   <mat-card-header class="main-header">
     <mat-card-title>Sign Up!</mat-card-title>
   </mat-card-header>
@@ -52,11 +58,3 @@
     </button>
   </mat-card-actions>
 </mat-card>
-<button
-  class="close-button"
-  mat-icon-button
-  color="basic"
-  [mat-dialog-close]="true"
->
-  <mat-icon>close</mat-icon>
-</button>

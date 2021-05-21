@@ -1,0 +1,73 @@
+.main-wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  margin-top: 75px;
+}
+
+.card {
+  text-align: center;
+  width: 325px;
+  margin: 25px auto;
+  box-shadow: 0px 0px 5px #dbca74;
+}
+
+.card > .favorite-movie > mat-icon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #cc0000;
+  transition: 0.3s;
+}
+
+.card > .favorite-movie > mat-icon:hover {
+  cursor: pointer;
+  transform: scaleX(0.8) scaleY(0.8);
+}
+
+.card > .select-favorite > mat-icon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #cc0000;
+  transition: 0.3s;
+}
+
+.card > .select-favorite > mat-icon:hover {
+  cursor: pointer;
+  transform: scaleX(1.2) scaleY(1.2);
+}
+
+.card-header {
+  justify-content: center;
+}
+
+.card-title {
+  font-size: 24px;
+  color: #3765c2;
+  padding: 5px;
+}
+
+.card-image {
+  width: 90%;
+  margin: auto;
+  box-shadow: 0px 0px 5px black;
+}
+
+.buttons {
+  text-align: center;
+  margin: 10px 0px 0px 10px;
+}
+
+.buttons > button {
+  color: white;
+  background-color: #3765c2;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+.buttons > button:hover {
+  color: black;
+  background-color: #dbca74;
+}

@@ -1,4 +1,9 @@
 <mat-card class="main-wrap">
+  <div class="close-icon-container">
+    <button mat-icon-button color="basic" [mat-dialog-close]="true">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
   <mat-card-header>
     <mat-card-title>Log in!</mat-card-title>
   </mat-card-header>
@@ -30,11 +35,3 @@
     <button mat-raised-button (click)="userLogin()" color="warn">Log in</button>
   </mat-card-actions>
 </mat-card>
-<button
-  class="close-button"
-  mat-icon-button
-  color="basic"
-  [mat-dialog-close]="true"
->
-  <mat-icon>close</mat-icon>
-</button>

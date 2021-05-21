@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // Its makes possible for the client app to communicate with the API or server-side.
 import{ HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-//import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 // Angular Materials Elements
 import { MatInputModule } from '@angular/material/input';
@@ -27,12 +27,12 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
-/*const appRoutes: Routes = [
-  { path: 'welcome', component: WelcomePageComponent },
-  { path: 'movies', component: MovieCardComponent },
-  { path: 'profile', component: UserProfileComponent },
+const appRoutes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
-];*/
+  { path: 'welcome', component: WelcomePageComponent },
+  { path: 'documentaries', component: MovieCardComponent },
+  //{ path: 'profile', component: UserProfileComponent },
+];
 
 @NgModule({
   declarations: [
@@ -54,8 +54,8 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
     MatFormFieldModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatIconModule
-    // RouterModule.forRoot(appRoutes),
+    MatIconModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent]

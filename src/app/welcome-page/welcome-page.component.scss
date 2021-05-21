@@ -1,9 +1,56 @@
-/*
-  .btn-container {
-    display: grid;
-    grid-template-columns: 100px;
-    grid-row-gap: 16px;
-    justify-content: center;
+.main-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  border: 2px solid lavender;
+
+  .container {
+    height: auto;
+    margin: 15px;
+    margin-top: 150px;
+    align-content: space-between;
     align-items: center;
+    background-color: rgb(236, 241, 255);
   }
+
+  .welcome__title {
+    margin: 15px;
+    margin-top: 20px;
+    align-items: center;
+
+    h1 {
+      line-height: normal;
+      font-size: 40px;
+      text-align: center;
+      font-weight: 600;
+
+      .brand {
+        margin-top: 15px;
+        font-style: italic;
+        letter-spacing: 1px;
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    margin: 15px;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 18%;
+
+    .mat-raised-button {
+      width: 100px;
+      display: flex;
+      margin: 15px;
+      justify-content: space-around;
+      align-content: center;
+    }
+  }
+} /*
+  
 */
