@@ -1,32 +1,24 @@
 .main-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.brand {
-  font-style: italic;
-}
-
-.main-wrap {
   margin-top: 40px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+
   .welcome__title {
-    margin-bottom: 48px;
+    margin-top: 100px;
+    align-items: center;
     h1 {
+      line-height: normal;
       font-size: 40px;
       text-align: center;
-      font-weight: 500;
-    }
-  }
+      font-weight: 600;
 
-  .btn-container {
-    display: grid;
-    grid-template-columns: 100px;
-    grid-row-gap: 16px;
-    justify-content: center;
-    align-items: center;
+      .brand {
+        margin-top: 15px;
+        font-style: italic;
+        letter-spacing: 1px;
+        letter-spacing: 1px;
+      }
+    }
   }
 }

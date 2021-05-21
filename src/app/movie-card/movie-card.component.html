@@ -1,1 +1,9 @@
-<p>movie-card works!</p>
+<!-- src/app/movie-card/movie-card.component.html -->
+<mat-card *ngFor="let documentary of documentaries; let i = index">
+  <mat-dialog-content>
+    <mat-card-title>{{ documentary.Title }}</mat-card-title>
+    <mat-card-subtitle
+      ><img src="{{ documentary.ImagePath }}"
+    /></mat-card-subtitle>
+  </mat-dialog-content>
+</mat-card>

@@ -1,15 +1,26 @@
+// src/app/movie-card/movie-card.component.ts
 import { Component, OnInit } from '@angular/core';
+import { GetAllDocumentariesService } from '../fetch-api-data.service';
+
 
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.scss']
 })
-export class MovieCardComponent implements OnInit {
+export class MovieCardComponent {
+  documentaries: any[] = [];
+  constructor(public fetchApiData: GetAllDocumentariesService) { }
 
-  constructor() { }
+ngOnInit(): void {
+  this.getDocumentaries();
+}
 
-  ngOnInit(): void {
+getDocumentaries(): void {
+  this.fetchApiData.getAllDocumentaries().subscribe((response: any) => {
+      this.documentaries = response;
+      console.log(this.documentaries);
+      return this.documentaries;
+    });
   }
-
 }

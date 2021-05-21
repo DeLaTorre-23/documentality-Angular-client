@@ -88,11 +88,11 @@ export class UserLoginService {
 @Injectable({
   providedIn: 'root',
 })
-export class GetAllMoviesService {
+export class GetAllDocumentariesService {
   constructor(private http: HttpClient) {}
 
   // Making the api call to get all movies.
-  getAllMovies(): Observable<any> {
+  getAllDocumentaries(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
     .get(apiUrl + 'documentaries', { 
