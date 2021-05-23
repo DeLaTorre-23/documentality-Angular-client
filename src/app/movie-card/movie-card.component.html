@@ -2,36 +2,6 @@
 <!-- src/app/movie-card/movie-card.component.html -->
 <div class="main-wrap">
   <mat-card *ngFor="let documentary of documentaries; let i = index">
-    <!--
-    <ng-container
-      *ngIf="
-        this.favoriteMoviesIDs.includes(documentary._id);
-        then favMovie;
-        else selectFav
-      "
-    ></ng-container>
-
-    
-      <ng-template #favMovie>
-      <div class="favorite-movie">
-        <mat-icon
-          (click)="
-            deleteFavoriteDocumentary(documentary._id, documentary.Title)
-          "
-          >favorite</mat-icon
-        >
-      </div>
-    </ng-template> 
-
-    <ng-template #selectFav>
-      <div class="select-favorite">
-        <mat-icon (click)="addToFavorites(documentary._id, documentary.Title)"
-          >favorite_border</mat-icon
-        >
-      </div>
-    </ng-template>
-    -->
-
     <mat-card-header class="card-header">
       <mat-card-title class="card-title">{{
         documentary.Title
@@ -58,7 +28,14 @@
       >
         Details
       </button>
-      <button mat-raised-button>Genre</button>
+      <button
+        mat-raised-button
+        (click)="
+          openGenre(documentary.Genre.Name, documentary.Genre.Description)
+        "
+      >
+        Genre
+      </button>
       <button mat-raised-button>Director</button>
     </mat-card-actions>
   </mat-card>

@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { GetAllDocumentariesService } from '../fetch-api-data.service';
 import { MovieDescriptionComponent } from '../movie-description/movie-description.component';
+import { MovieGenreComponent } from '../movie-genre/movie-genre.component';
 
 @Component({
   selector: 'app-movie-card',
@@ -47,12 +48,22 @@ export class MovieCardComponent implements OnInit {
   director: string, 
   genre: string
   ): void {
-  this.dialog.open(MovieDescriptionComponent, {
-    data: { title, imagePath, description, director, genre },
-    width: '400px',
- 
-  })
+    this.dialog.open(MovieDescriptionComponent, {
+      data: { title, imagePath, description, director, genre },
+      width: '400px',
+    })
+  }
 
+  /**
+   * Function to open dialog showing genre dialog
+   * @param name
+   * @param description
+   */
+   openGenre(name: string, description: string): void {
+    this.dialog.open(MovieGenreComponent, {
+      data: { name, description },
+      width: '350px'
+    });
   }
 }
 
