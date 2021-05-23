@@ -47,10 +47,12 @@
       <button
         mat-raised-button
         (click)="
-          openDetailsDialog(
-            documentary.Description,
+          openDetails(
+            documentary.Title,
             documentary.ImagePath,
-            documentary.Title
+            documentary.Description,
+            documentary.Genre.Name,
+            documentary.Director.Name
           )
         "
       >
