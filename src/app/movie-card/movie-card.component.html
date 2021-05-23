@@ -1,3 +1,4 @@
+<app-nav-bar></app-nav-bar>
 <!-- src/app/movie-card/movie-card.component.html -->
 <div class="main-wrap">
   <mat-card *ngFor="let documentary of documentaries; let i = index">
@@ -43,7 +44,18 @@
       class="card-image"
     />
     <mat-card-actions class="buttons">
-      <button mat-raised-button>Description</button>
+      <button
+        mat-raised-button
+        (click)="
+          openDetailsDialog(
+            documentary.Description,
+            documentary.ImagePath,
+            documentary.Title
+          )
+        "
+      >
+        Details
+      </button>
       <button mat-raised-button>Genre</button>
       <button mat-raised-button>Director</button>
     </mat-card-actions>
