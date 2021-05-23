@@ -36,7 +36,19 @@
       >
         Genre
       </button>
-      <button mat-raised-button>Director</button>
+      <button
+        mat-raised-button
+        (click)="
+          openDirector(
+            documentary.Director.Name,
+            documentary.Director.Bio,
+            documentary.Director.Birth,
+            documentary.Director.Death
+          )
+        "
+      >
+        Director
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

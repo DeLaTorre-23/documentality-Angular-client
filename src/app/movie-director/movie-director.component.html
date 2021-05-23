@@ -1,6 +1,8 @@
 <div class="wrap-container">
   <h1>{{ data.name }}</h1>
-  <p>{{ data.description }}</p>
+  <p>{{ data.bio }}</p>
+  <p>Born: {{ data.birth | date: "dd/MM/yyyy":"UTC" }}</p>
+  <p>Died: {{ data.death | date: "dd/MM/yyyy":"UTC" }}</p>
   <button mat-icon-button color="basic" [mat-dialog-close]="true">
     <mat-icon>close</mat-icon>
   </button>
