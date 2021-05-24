@@ -11,6 +11,7 @@ import {
   GetFavoriteMoviesService,
   DeleteUserService,
   DeleteFavoriteMovieService,
+  AddFavoriteMovieService
 } from '../fetch-api-data.service';
 import { MovieDescriptionComponent } from '../movie-description/movie-description.component';
 import { MovieGenreComponent } from '../movie-genre/movie-genre.component';
@@ -34,6 +35,7 @@ export class UserProfileComponent implements OnInit {
     public fetchApiDataFavoriteMovies: GetFavoriteMoviesService,
     public fetchApiDataDeleteUser: DeleteUserService,
     public fetchApiDataDeleteFavorite: DeleteFavoriteMovieService,
+    public fetchApiDataAddFavoriteMovies: AddFavoriteMovieService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private router: Router
@@ -115,15 +117,15 @@ export class UserProfileComponent implements OnInit {
    getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     if (user) {
-      this.fetchApiDataUser.getUser().subscribe((resp: any) => {
-        this.favoriteDocumentaryId = resp.favoriteDocumentary;
+      this.fetchApiDataUser.getUser().subscribe((response: any) => {
+        this.favoriteDocumentaryId = response.favoriteDocumentary;
 
-        if (this.favoriteDocumentaryId.length === 0) {
+       /* if (this.favoriteDocumentaryId.length === 0) {
           let noFavorites = document.querySelector(
             '.no-favorites'
           ) as HTMLDivElement;
           noFavorites.innerHTML = "You don't have any favorite documentary!";
-        }
+        }*/
 
         return this.favoriteDocumentaryId;
       });
@@ -131,6 +133,33 @@ export class UserProfileComponent implements OnInit {
     setTimeout(() => {
       this.getDocumentaries();
     }, 100);
+  }
+
+/**
+   * Adds or removes movie from user's list of favorites
+   * @param id
+   * @returns
+   */
+  onToggleFavoriteMovie(id: string): any {
+    const Title = localStorage.getItem('Title');
+    if (this.favoriteDocumentaryId.includes(id)) {
+      this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
+        this.snackBar.open(`${Title} has been removed from your favorites.`, 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      });
+      const index = this.favoriteDocumentaryId.indexOf(id);
+      return this.favoriteDocumentaryId.splice(index, 1);
+    } else {
+      this.fetchApiDataAddFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
+        this.snackBar.open('The documentary has been added to your favorites.', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      });
+    }
+    return this.favoriteDocumentaryId.push(id);
   }
 
   /**
@@ -191,16 +220,22 @@ export class UserProfileComponent implements OnInit {
           duration: 4000,
           verticalPosition: 'top',
         });
+        setTimeout(
+          () =>
+            this.router.navigate(['user']).then(() => {
+              window.location.reload();
+            }),
+          1500
+        );
       },
       (result) => {
+        console.log(result);
         this.snackBar.open(result, 'OK', {
-          duration: 3000,
+          duration: 5000,
           verticalPosition: 'top',
         });
       }
     );
-    localStorage.clear();
-    this.router.navigate(['welcome']);
   }
 
   /**

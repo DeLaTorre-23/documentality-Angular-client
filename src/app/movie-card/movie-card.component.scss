@@ -9,36 +9,22 @@
   width: 325px;
   margin: 25px auto;
   box-shadow: 0px 0px 5px lavender;
-}
 
-.wrap-container > .favorite-movie > mat-icon {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  color: #ebdd24;
-  transition: 0.3s;
-}
+  .card-header {
+    justify-content: center;
 
-.wrap-container > .favorite-movie > mat-icon:hover {
-  cursor: pointer;
-  transform: scaleX(0.8) scaleY(0.8);
-}
-
-.wrap-container > .select-favorite > mat-icon {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  color: #ebdd24;
-  transition: 0.3s;
-}
-
-.wrap-container > .select-favorite > mat-icon:hover {
-  cursor: pointer;
-  transform: scaleX(1.2) scaleY(1.2);
-}
-
-.card-header {
-  justify-content: center;
+    .favorite-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      color: #ebdd24;
+      transition: 0.3s;
+    }
+    .favorite-icon:hover {
+      cursor: pointer;
+      transform: scaleX(1.2) scaleY(1.2);
+    }
+  }
 }
 
 .card-title {

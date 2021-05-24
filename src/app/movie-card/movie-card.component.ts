@@ -40,6 +40,7 @@ export class MovieCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDocumentaries();
+    
   }
 
   /**
@@ -116,11 +117,33 @@ export class MovieCardComponent implements OnInit {
     }, 100);
   }
 
+  onToggleFavoriteMovie(id: string): any {
+    const Title = localStorage.getItem('Title');
+    if (this.favoriteDocumentaryId.includes(id)) {
+      this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
+        this.snackBar.open(`${Title} has been removed from your favorites.`, 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      });
+      const index = this.favoriteDocumentaryId.indexOf(id);
+      return this.favoriteDocumentaryId.splice(index, 1);
+    } else {
+      this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
+        this.snackBar.open('The documentary has been added to your favorites.', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      });
+    }
+    return this.favoriteDocumentaryId.push(id);
+  }
+
   /**
   * Function that adds movie to user's list of favorites
   * @param id type: number - Movie ID
   * @param Title type: string - Movie Title
-  */
+  *//*
  addToFavorites(id: string, Title: string): void {
   this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
     this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
@@ -137,13 +160,13 @@ export class MovieCardComponent implements OnInit {
   setTimeout(() => {
     this.getDocumentaries();
   }, 200);
-}
+}*/
 
  /**
    * Function to delete a movie from user's list of favorites
    * @param id type: string - ID of movie to be deleted from favorites
    * @param Title type: string - Title of movie to be deleted from favorites
-   */
+   *//*
   deleteFavoriteMovie(id: string, Title: string): void {
     this.fetchApiDataDeleteFavorite
       .deleteFavoriteMovie(id)
@@ -160,11 +183,36 @@ export class MovieCardComponent implements OnInit {
 
         this.getFavoriteMovies();
       });
-  }
+  }*/
 
 
 
    /**
+   * Adds or removes documentary from user's list of favorites
+   *//*
+    onToggleFavoriteMovie(id: string, Title: string): void {
+      if (this.favoriteDocumentaryId.includes(id)) {
+        this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
+          this.snackBar.open(`${Title} has been removed from your favorites.`, 'OK', {
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+        });
+        const index = this.favoriteDocumentaryId.indexOf(id);
+        return this.favoriteDocumentaryId.splice(index, 1);
+      } else {
+        this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
+          this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
+            duration: 3000,
+      verticalPosition: 'top',
+          });
+        });
+      }
+      return this.favoriteDocumentaryId.push(id);
+    }
+    */
+
+    /**
    * Adds or removes documentary from user's list of favorites
    *//*
     onToggleFavoriteMovie(id: string): any {

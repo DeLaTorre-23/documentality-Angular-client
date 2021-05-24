@@ -1,59 +1,31 @@
 <app-nav-bar></app-nav-bar>
 <!-- src/app/movie-card/movie-card.component.html -->
 <div class="main-wrap">
-  <mat-card
-    *ngFor="let documentary of documentaries; let i = index"
-    class="wrap-container"
-  >
-    <!--
-    <button
-          #tooltip="matTooltip"
-          matTooltip="Toggle favorite documentary"
-          matTooltipPosition="above"
-          mat-icon-button
-          aria-label="Adds documentary to user's list of favorites"
-          (click)="onToggleFavoriteMovie(documentary._id)"
-        >
-          <mat-icon color="warn">
-            <span
-              *ngIf="
-                favoriteDocumentaryId.includes(documentary._id, documentary.Title);
-                else elseBlock
-              "
-              >star</span
-            >
-            <ng-template #elseBlock>star_border</ng-template>
-          </mat-icon>
-        </button>
-
-    -->
-
-    <ng-container
-      *ngIf="
-        this.favoriteDocumentaryId.includes(documentary._id, documentary.Title);
-        then favDocumentary;
-        else selectFav
-      "
-    ></ng-container>
-
-    <ng-template #favDocumentary>
-      <div class="favorite-movie">
-        <mat-icon
-          (click)="deleteFavoriteMovie(documentary._id, documentary.Title)"
-          >star</mat-icon
-        >
-      </div>
-    </ng-template>
-
-    <ng-template #selectFav>
-      <div class="select-favorite">
-        <mat-icon (click)="addToFavorites(documentary._id, documentary.Title)"
-          >star_border</mat-icon
-        >
-      </div>
-    </ng-template>
-
+  <mat-card *ngFor="let documentary of documentaries" class="wrap-container">
     <mat-card-header class="card-header">
+      <button
+        #tooltip="matTooltip"
+        matTooltip="Toggle favorite documentary"
+        matTooltipPosition="above"
+        mat-icon-button
+        aria-label="Adds documentary to user's list of favorites"
+        (click)="onToggleFavoriteMovie(documentary._id)"
+      >
+        <mat-icon class="favorite-icon">
+          <span
+            *ngIf="
+              favoriteDocumentaryId.includes(
+                documentary._id,
+                documentary.Title
+              );
+              else elseBlock
+            "
+            >star</span
+          >
+          <ng-template #elseBlock>star_border</ng-template>
+        </mat-icon>
+      </button>
+
       <mat-card-title class="card-title">
         {{ documentary.Title }}
       </mat-card-title>
@@ -101,34 +73,6 @@
       >
         Director
       </button>
-      <!--
-        button
-        #tooltip="matTooltip"
-        matTooltip="Toggle favorite movie"
-        matTooltipPosition="above"
-        mat-icon-button
-        aria-label="Adds movie to user's list of favorites"
-        (click)="onToggleFavoriteMovie(movie._id)"
-      >
-        <mat-icon color="warn">
-          <span *ngIf="favoriteMovieIds.includes(movie._id); else elseBlock"
-            >star</span
-          >
-          <ng-template #elseBlock>star_border</ng-template>
-        </mat-icon>
-      </button>
-      -->
-
-      <!-- 
-         <button
-        mat-raised-button
-        color='warn'
-        aria-label='Add movie to favorites button'
-        (click)='addFavorite(documentary._id, documentary.Title)'
-      >
-        <mat-icon>favorite_border</mat-icon>
-      </button>
-      -->
     </mat-card-actions>
   </mat-card>
 </div>
