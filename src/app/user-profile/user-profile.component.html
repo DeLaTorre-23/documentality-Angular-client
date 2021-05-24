@@ -1,0 +1,133 @@
+<app-nav-bar></app-nav-bar>
+<div>
+  <mat-card class="update-container">
+    <mat-card-header class="update-header">
+      <mat-card-title class="update-title">Update Your Profile</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <mat-form-field>
+          <mat-hint>Username must be at least 6 characters</mat-hint>
+          <input
+            matInput
+            class="input"
+            [(ngModel)]="userData.Username"
+            placeholder="Username"
+            type="text"
+            name="Username"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-hint>Password must be at least 6 characters</mat-hint>
+          <input
+            matInput
+            class="input"
+            [(ngModel)]="userData.Password"
+            placeholder="Password"
+            type="password"
+            name="Password"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            class="input"
+            [(ngModel)]="userData.Email"
+            placeholder="Email"
+            type="email"
+            name="Email"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            [(ngModel)]="userData.Birthday"
+            placeholder="Birthday"
+            type="date"
+            name="Birthday"
+          />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="update-button-container">
+      <button mat-raised-button (click)="editUser()" class="update-button">
+        Submit
+      </button>
+      <button
+        mat-raised-button
+        (click)="deleteUser()"
+        class="update-button"
+        color="warn"
+      >
+        Delete account
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <h1 class="favorite-movies-heading">Your Favorites Documentaries</h1>
+  <div class="no-favorites"></div>
+  <div class="container">
+    <mat-card
+      *ngFor="let documentary of favoriteDocumentary; let i = index"
+      class="card active"
+    >
+      <mat-icon
+        (click)="deleteFavoriteMovies(documentary._id, documentary.Title, i)"
+      >
+        favorite
+      </mat-icon>
+
+      <mat-card-header class="card-header">
+        <mat-card-title class="card-title">{{
+          documentary.Title
+        }}</mat-card-title>
+      </mat-card-header>
+
+      <img
+        src="{{ documentary.ImagePath }}"
+        alt="{{ documentary.Title }}"
+        class="card-image"
+      />
+
+      <mat-card-actions class="buttons">
+        <button
+          mat-raised-button
+          (click)="
+            openDetails(
+              documentary.Title,
+              documentary.ImagePath,
+              documentary.Description,
+              documentary.Genre.Name,
+              documentary.Director.Name
+            )
+          "
+        >
+          Details
+        </button>
+        <button
+          mat-raised-button
+          (click)="
+            openGenre(documentary.Genre.Name, documentary.Genre.Description)
+          "
+        >
+          Genre
+        </button>
+        <button
+          mat-raised-button
+          (click)="
+            openDirector(
+              documentary.Director.Name,
+              documentary.Director.Bio,
+              documentary.Director.Birth,
+              documentary.Director.Death
+            )
+          "
+        >
+          Director
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

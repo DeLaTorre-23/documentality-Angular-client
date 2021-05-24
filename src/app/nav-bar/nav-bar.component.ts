@@ -56,11 +56,10 @@ export class NavBarComponent implements OnInit {
       verticalPosition: 'top',
     });
   }
-
   
   // Navigates user to profile-view
   openProfile(): void {
-    this.router.navigate(['/user']);
+    this.router.navigate(['/profile']);
   }
 
   // Navbar logo takes logged in user to movies page or welcome page if not logged in

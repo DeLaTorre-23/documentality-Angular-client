@@ -2,8 +2,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+//import { Router } from '@angular/router';
 
-import { GetAllDocumentariesService } from '../fetch-api-data.service';
+import {
+  //EditUserService,
+  GetAllDocumentariesService,
+  GetUserService,
+  AddFavoriteMovieService,
+  //GetFavoriteMoviesService,
+  //DeleteUserService,
+  DeleteFavoriteMovieService,
+} from '../fetch-api-data.service';
+
 import { MovieDescriptionComponent } from '../movie-description/movie-description.component';
 import { MovieGenreComponent } from '../movie-genre/movie-genre.component';
 import { MovieDirectorComponent } from '../movie-director/movie-director.component';
@@ -14,12 +24,16 @@ import { MovieDirectorComponent } from '../movie-director/movie-director.compone
   styleUrls: ['./movie-card.component.scss']
 })
 export class MovieCardComponent implements OnInit {
-  
+  //user: any[] = [];
   documentaries: any[] = [];
+  favoriteDocumentary: any[] = [0];
   favoriteDocumentaryId: any[] = [];
   
   constructor(
     public fetchApiData: GetAllDocumentariesService,
+    public fetchApiDataUser: GetUserService,
+    public fetchApiDataFavoriteMovies: AddFavoriteMovieService,
+    public fetchApiDataDeleteFavorite: DeleteFavoriteMovieService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) { }
@@ -28,6 +42,10 @@ export class MovieCardComponent implements OnInit {
     this.getDocumentaries();
   }
 
+  /**
+  * Function that retrieves list of all movies from database
+  * @returns documentaries
+  */
   getDocumentaries(): void {
     this.fetchApiData.getAllDocumentaries().subscribe((response: any) => {
       this.documentaries = response;
@@ -80,6 +98,94 @@ export class MovieCardComponent implements OnInit {
       width: '350px'
     });
   }
+
+  /**
+  * Function to get user's favorite movies
+  * @returns favoriteMovieIDs - IDs of user's favorite movies
+  */
+  getFavoriteMovies(): void {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.fetchApiDataUser.getUser().subscribe((resp: any) => {
+        this.favoriteDocumentaryId = resp.FavoriteDocumentary;
+        return this.favoriteDocumentaryId;
+      });
+    }
+    setTimeout(() => {
+      this.getDocumentaries();
+    }, 100);
+  }
+
+  /**
+  * Function that adds movie to user's list of favorites
+  * @param id type: number - Movie ID
+  * @param Title type: string - Movie Title
+  */
+ addToFavorites(id: string, Title: string): void {
+  this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
+    this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
+      duration: 3000,
+      verticalPosition: 'top',
+    });
+    console.log(resp);
+
+    //
+    this.getFavoriteMovies();
+    
+  });
+
+  setTimeout(() => {
+    this.getDocumentaries();
+  }, 200);
+}
+
+ /**
+   * Function to delete a movie from user's list of favorites
+   * @param id type: string - ID of movie to be deleted from favorites
+   * @param Title type: string - Title of movie to be deleted from favorites
+   */
+  deleteFavoriteMovie(id: string, Title: string): void {
+    this.fetchApiDataDeleteFavorite
+      .deleteFavoriteMovie(id)
+      .subscribe((resp: any) => {
+        this.snackBar.open(
+          `${Title} has been removed from your favorites.`,
+          'OK',
+          {
+            duration: 3000,
+            verticalPosition: 'top',
+          }
+        );
+        console.log(resp);
+
+        this.getFavoriteMovies();
+      });
+  }
+
+
+
+   /**
+   * Adds or removes documentary from user's list of favorites
+   *//*
+    onToggleFavoriteMovie(id: string): any {
+      if (this.favoriteDocumentaryId.includes(id)) {
+        this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
+          this.snackBar.open('Removed from favorites!', 'OK', {
+            duration: 2000,
+          });
+        });
+        const index = this.favoriteDocumentaryId.indexOf(id);
+        return this.favoriteDocumentaryId.splice(index, 1);
+      } else {
+        this.fetchApiDataFavoriteMovies.addFavorite(id).subscribe((response: any) => {
+          this.snackBar.open('Added to favorites!', 'OK', {
+            duration: 2000,
+          });
+        });
+      }
+      return this.favoriteDocumentaryId.push(id);
+    }
+    */
 }
 
 

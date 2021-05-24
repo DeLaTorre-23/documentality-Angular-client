@@ -21,12 +21,12 @@ export class UserRegistrationService {
   constructor(private http: HttpClient) {}
   /**
   * Making the api call for the user registration endpoint
-  * @param userDetails 
+  * @param userData 
   */
-  public userRegistration(userDetails: any): Observable<any> {
-    // console.log(userDetails);
+  public userRegistration(userData: any): Observable<any> {
+    // console.log(userData);
     return this.http
-    .post(apiUrl + 'users', userDetails)
+    .post(apiUrl + 'users', userData)
     .pipe(
       catchError(this.handleError));
   }
@@ -57,12 +57,12 @@ export class UserLoginService {
 
   /**
   * Making the api call to the user login endpoint.
-  * @param userDetails
+  * @param userData
   */
-  public userLogin(userDetails: any): Observable<any> {
-    console.log(userDetails);
+  public userLogin(userData: any): Observable<any> {
+    console.log(userData);
     return this.http
-    .post(apiUrl + 'login', userDetails)
+    .post(apiUrl + 'login', userData)
     .pipe(
       catchError(this.handleError)
     );
@@ -73,7 +73,8 @@ export class UserLoginService {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` + `Error body is: ${error.error}`
+        `Error Status code ${error.status}, ` + 
+        `Error body is: ${error.error}`
       );
     }
     return throwError('Invalid username or password.  Please try again.');
@@ -313,7 +314,7 @@ export class GetFavoriteMoviesService {
   getFavoriteMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-    .get(apiUrl + 'users/:Username/Documentaries', { // 'users/:Username/movies', 
+    .get(apiUrl + 'users/:Username', {  // 'users/:Username/Documentaries'
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       }),
@@ -357,10 +358,12 @@ export class AddFavoriteMovieService {
   * Making the api call to add a favorite movie to a user's favorite list.
   * @param title
   */
-  addFavoriteMovie(title: string): Observable<any> {
+  addFavoriteMovie(id: string): Observable<any> {
     const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user');
     return this.http
-    .post(apiUrl + 'users/:Username/Documentaries/:Title',/* 'users/:Username/movies/:id', */ title, 
+    .post(`${apiUrl}users/${username}/Documentaries/${id}`, id,
+   
     {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
@@ -403,12 +406,12 @@ export class EditUserService {
 
   /**
   * Making the api call to edit a user's information.
-  * @param userDetails
+  * @param userData
   */
-  editUser(userDetails: any): Observable<any> {
+  editUser(userData: any): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
-    .put(apiUrl + 'users/:Username', userDetails, {
+    .put(apiUrl + 'users', userData, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       }),
@@ -450,9 +453,10 @@ export class DeleteUserService {
 
   // Making the api call to delete a user.
   deleteUser(): Observable<any> {
+    const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
     return this.http
-    .delete(apiUrl + 'users/:Username', {
+    .delete(apiUrl + `users/${user}`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       }),
@@ -498,10 +502,11 @@ export class DeleteFavoriteMovieService {
   * Making the api call to add a movie to a user's list of favorites.
   * @param title
   */
-  deleteFavoriteMovie(title: string): Observable<any> {
+  deleteFavoriteMovie(id: string): Observable<any> {
     const token = localStorage.getItem('token');
+    const username = localStorage.getItem('user');
     return this.http
-    .delete(apiUrl + 'users/:Username/Documentaries/:Title', { // 'users/:Username/movies/:id', 
+    .delete(apiUrl + `users/${username}/${id}`, { // 'users/:Username/movies/:id', 
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       }),

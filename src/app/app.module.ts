@@ -34,17 +34,14 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MovieDescriptionComponent } from './movie-description/movie-description.component';
 import { MovieGenreComponent } from './movie-genre/movie-genre.component';
 import { MovieDirectorComponent } from './movie-director/movie-director.component';
-/*
-import { MovieDirectorComponent } from './movie-director/movie-director.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { RemoveAccountComponent } from './remove-account/remove-account.component';
-*/
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'documentaries', component: MovieCardComponent },
-  //{ path: 'profile', component: UserProfileComponent },
+  { path: 'profile', component: UserProfileComponent },
 ];
 
 @NgModule({
@@ -57,11 +54,8 @@ const appRoutes: Routes = [
     NavBarComponent,
     MovieDescriptionComponent,
     MovieGenreComponent,
-    MovieDirectorComponent
-    /*
     MovieDirectorComponent,
-    RemoveAccountComponent,
-    */
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +76,6 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatSlideToggleModule,
     MatToolbarModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]
