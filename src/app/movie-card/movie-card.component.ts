@@ -21,9 +21,8 @@ import { MovieDirectorComponent } from '../movie-director/movie-director.compone
   styleUrls: ['./movie-card.component.scss']
 })
 export class MovieCardComponent implements OnInit {
-  //user: any[] = [];
   documentaries: any[] = [];
-  favoriteDocumentary: any[] = [0];
+  favoriteDocumentary: any[] = [];
   favoriteDocumentaryId: any[] = [];
   
   constructor(
@@ -50,7 +49,7 @@ export class MovieCardComponent implements OnInit {
       this.documentaries = response;
       console.log(this.documentaries);
       return this.documentaries;
-     });
+    });
   }
 
   /**
@@ -69,7 +68,7 @@ export class MovieCardComponent implements OnInit {
     this.dialog.open(MovieDescriptionComponent, {
       data: { title, imagePath, description, director, genre },
       width: '400px',
-    })
+    });
   }
 
   /**
@@ -105,7 +104,7 @@ export class MovieCardComponent implements OnInit {
   getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     if (user) {
-      this.fetchApiDataUser.getUser().subscribe((response: any) => {
+      this.fetchApiDataUser.getUser(user).subscribe((response: any) => {
         this.favoriteDocumentaryId = response.FavoriteDocumentary;
         return this.favoriteDocumentaryId;
       });
@@ -114,9 +113,8 @@ export class MovieCardComponent implements OnInit {
       this.getDocumentaries();
     }, 100);
   }
-
-  onToggleFavoriteMovie(id: string): any {
-    const Title = localStorage.getItem('Title');
+  
+  onToggleFavoriteMovie(id: string, Title: string): any {
     if (this.favoriteDocumentaryId.includes(id)) {
       this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
         this.snackBar.open(`${Title} has been removed from your favorites.`, 'OK', {
@@ -136,102 +134,6 @@ export class MovieCardComponent implements OnInit {
     }
     return this.favoriteDocumentaryId.push(id);
   }
-
-  /**
-  * Function that adds movie to user's list of favorites
-  * @param id type: number - Movie ID
-  * @param Title type: string - Movie Title
-  */
- addToFavorites(id: string, Title: string): void {
-  this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
-    this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
-      duration: 3000,
-      verticalPosition: 'top',
-    });
-    console.log(resp);
-
-    //
-    this.getFavoriteMovies();
-    
-  });
-
-  setTimeout(() => {
-    this.getDocumentaries();
-  }, 200);
-}
-
- /**
-   * Function to delete a movie from user's list of favorites
-   * @param id type: string - ID of movie to be deleted from favorites
-   * @param Title type: string - Title of movie to be deleted from favorites
-   *//*
-  deleteFavoriteMovie(id: string, Title: string): void {
-    this.fetchApiDataDeleteFavorite
-      .deleteFavoriteMovie(id)
-      .subscribe((resp: any) => {
-        this.snackBar.open(
-          `${Title} has been removed from your favorites.`,
-          'OK',
-          {
-            duration: 3000,
-            verticalPosition: 'top',
-          }
-        );
-        console.log(resp);
-
-        this.getFavoriteMovies();
-      });
-  }*/
-
-
-
-   /**
-   * Adds or removes documentary from user's list of favorites
-   *//*
-    onToggleFavoriteMovie(id: string, Title: string): void {
-      if (this.favoriteDocumentaryId.includes(id)) {
-        this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
-          this.snackBar.open(`${Title} has been removed from your favorites.`, 'OK', {
-            duration: 3000,
-            verticalPosition: 'top',
-          });
-        });
-        const index = this.favoriteDocumentaryId.indexOf(id);
-        return this.favoriteDocumentaryId.splice(index, 1);
-      } else {
-        this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
-          this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
-            duration: 3000,
-      verticalPosition: 'top',
-          });
-        });
-      }
-      return this.favoriteDocumentaryId.push(id);
-    }
-    */
-
-    /**
-   * Adds or removes documentary from user's list of favorites
-   *//*
-    onToggleFavoriteMovie(id: string): any {
-      if (this.favoriteDocumentaryId.includes(id)) {
-        this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
-          this.snackBar.open('Removed from favorites!', 'OK', {
-            duration: 2000,
-          });
-        });
-        const index = this.favoriteDocumentaryId.indexOf(id);
-        return this.favoriteDocumentaryId.splice(index, 1);
-      } else {
-        this.fetchApiDataFavoriteMovies.addFavorite(id).subscribe((response: any) => {
-          this.snackBar.open('Added to favorites!', 'OK', {
-            duration: 2000,
-          });
-        });
-      }
-      return this.favoriteDocumentaryId.push(id);
-    }
-    */
 }
 
 

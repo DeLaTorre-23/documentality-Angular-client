@@ -9,7 +9,7 @@
         matTooltipPosition="above"
         mat-icon-button
         aria-label="Adds documentary to user's list of favorites"
-        (click)="onToggleFavoriteMovie(documentary._id)"
+        (click)="onToggleFavoriteMovie(documentary._id, documentary.Title)"
       >
         <mat-icon class="favorite-icon">
           <span

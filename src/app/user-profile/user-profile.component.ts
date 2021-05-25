@@ -49,22 +49,22 @@ export class UserProfileComponent implements OnInit {
   }
   
   /**
-   * Function that retrieves list of all movies from database
-   * then checks for favorite movie ids against this list.
-   * If a match, movie is pushed to favoriteMovies array.
-   * @returns favoriteMovies
-   */
-   getDocumentaries(): void {
+  * Function that retrieves list of all movies from database
+  * then checks for favorite movie ids against this list.
+  * If a match, movie is pushed to favoriteMovies array.
+  * @returns favoriteMovies
+  */
+  getDocumentaries(): void {
     this.fetchApiDataAllMovies.getAllDocumentaries().subscribe((response: any) => {
       this.documentaries = response;
       this.documentaries.forEach((documentary) => {
         // With this I solve the includes error
-        // but still I can generate the favoriteMovie view inside of user-profile
+        // but still I can't generate the favoriteMovie view inside of user-profile
         //if (this.favoriteDocumentary.includes(documentary._id))   
-        if (this.favoriteDocumentaryId.includes(documentary._id))
+        if (this.favoriteDocumentary.includes(documentary._id))
           this.favoriteDocumentary.push(documentary);
       });
-      return this.favoriteDocumentary;
+      return this.favoriteDocumentaryId;
     });
   }
 
@@ -117,20 +117,19 @@ export class UserProfileComponent implements OnInit {
   * Function to get user's favorite movies
   * @returns favoriteMovieIDs - IDs of user's favorite movies
   */
-   getFavoriteMovies(): void {
+  getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     if (user) {
-      this.fetchApiDataUser.getUser().subscribe((response: any) => {
+    const user = localStorage.getItem('user');
+      this.fetchApiDataUser.getUser(user).subscribe((response: any) => {
         this.favoriteDocumentaryId = response.favoriteDocumentary;
-
        if (this.favoriteDocumentary.length === 0) {
           let noFavorites = document.querySelector(
             '.no-favorites'
           ) as HTMLDivElement;
           noFavorites.innerHTML = "You don't have any favorite documentary!";
         }
-
-        //return this.favoriteDocumentaryId;
+        return this.favoriteDocumentaryId;
       });
     }
     setTimeout(() => {
@@ -138,13 +137,12 @@ export class UserProfileComponent implements OnInit {
     }, 100);
   }
 
-/**
-   * Adds or removes movie from user's list of favorites
-   * @param id
-   * @returns
-   */
-  onToggleFavoriteMovie(id: string): any {
-    const Title = localStorage.getItem('Title');
+  /**
+  * Adds or removes movie from user's list of favorites
+  * @param id
+  * @returns
+  */
+  onToggleFavoriteMovie(id: string, Title: string): any {
     if (this.favoriteDocumentaryId.includes(id)) {
       this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
         this.snackBar.open(`${Title} has been removed from your favorites.`, 'OK', {
@@ -156,7 +154,7 @@ export class UserProfileComponent implements OnInit {
       return this.favoriteDocumentaryId.splice(index, 1);
     } else {
       this.fetchApiDataAddFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
-        this.snackBar.open('The documentary has been added to your favorites.', 'OK', {
+        this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
           duration: 3000,
           verticalPosition: 'top',
         });
@@ -164,48 +162,13 @@ export class UserProfileComponent implements OnInit {
     }
     return this.favoriteDocumentaryId.push(id);
   }
-  
-
-  /**
-  * Function that deletes a movie from user's list of favorites.
-  * The class "active" is removed from the movie that has been deleted,
-  * and the class "delete" is added so the card is not displayed.
-  * The checkNoFavorites function is called.
-  * @param id type: string - ID of movie to be deleted from favorites
-  * @param Title type: string - Title of movie to be deleted from favorites
-  * @param i type: number - index of movie
-  */
-  deleteFavoriteMovies(id: string, Title: string, i: number): void {
-    this.fetchApiDataDeleteFavorite
-      .deleteFavoriteMovie(id)
-      .subscribe((response: any) => {
-        this.snackBar.open(
-          `${Title} has been removed from your favorites.`,
-          'OK',
-          {
-            duration: 3000,
-            verticalPosition: 'top',
-          }
-        );
-        console.log(response);
-
-        let cards = document.querySelectorAll('.card');
-        let tempCards = Array.from(cards);
-
-        tempCards[i].classList.remove('active');
-        tempCards[i].classList.add('delete');
-
-        this.checkNoFavorites();
-      }
-    );
-  }
-  
+ 
   /**
   * Function that checks whether a user no longer has favorite movies after
   * a favorite is deleted. If no cards remain with the "active" class, text
   * is displayed to let the user know they do not have any favorites.
   */
-   checkNoFavorites() {
+  checkNoFavorites() {
     let container = document.querySelector('.container') as HTMLDivElement;
     let noFavorites = document.querySelector('.no-favorites') as HTMLDivElement;
     if (container.querySelectorAll('.active').length < 1)
@@ -215,7 +178,7 @@ export class UserProfileComponent implements OnInit {
   /**
    * Function that allows the user to update their profile information
    */
-   editUser(): void {
+  editUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe(
       (result) => {
         console.log(result);
@@ -245,7 +208,7 @@ export class UserProfileComponent implements OnInit {
   /**
   * Function that allows the user to delete their profile
   */
-   deleteUser(): void {
+  deleteUser(): void {
     this.fetchApiDataDeleteUser.deleteUser().subscribe(
       (resp: any) => {
         this.snackBar.open(
@@ -263,8 +226,7 @@ export class UserProfileComponent implements OnInit {
         this.snackBar.open(result, 'OK', {
           duration: 3000,
           verticalPosition: 'top',
-        });
-       
+        });      
         // Refreshes and redirects to welcome view
         this.router.navigate(['/welcome']).then(() => {
           window.location.reload();
@@ -272,6 +234,4 @@ export class UserProfileComponent implements OnInit {
       }
     );
   }
-
-
 }

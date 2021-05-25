@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 // App Components Elements
 import { UserRegistrationFormComponent } from '../user-registration-form/user-registration-form.component';
 import { UserLoginComponent } from '../user-login/user-login.component';
-import { MovieCardComponent } from '../movie-card/movie-card.component';
 
 @Component({
   selector: 'app-welcome-page',
