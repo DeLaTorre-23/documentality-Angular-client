@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import {
-  EditUserService,
   GetAllDocumentariesService,
   GetUserService,
   GetFavoriteMoviesService,
+  EditUserService,
+  AddFavoriteMovieService,
   DeleteUserService,
   DeleteFavoriteMovieService,
-  AddFavoriteMovieService
 } from '../fetch-api-data.service';
 import { MovieDescriptionComponent } from '../movie-description/movie-description.component';
 import { MovieGenreComponent } from '../movie-genre/movie-genre.component';
@@ -29,13 +29,13 @@ export class UserProfileComponent implements OnInit {
   favoriteDocumentaryId: any[] = [];
 
   constructor(
-    public fetchApiData: EditUserService,
     public fetchApiDataAllMovies: GetAllDocumentariesService,
     public fetchApiDataUser: GetUserService,
     public fetchApiDataFavoriteMovies: GetFavoriteMoviesService,
+    public fetchApiData: EditUserService,
+    public fetchApiDataAddFavoriteMovies: AddFavoriteMovieService,
     public fetchApiDataDeleteUser: DeleteUserService,
     public fetchApiDataDeleteFavorite: DeleteFavoriteMovieService,
-    public fetchApiDataAddFavoriteMovies: AddFavoriteMovieService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private router: Router
@@ -58,6 +58,9 @@ export class UserProfileComponent implements OnInit {
     this.fetchApiDataAllMovies.getAllDocumentaries().subscribe((response: any) => {
       this.documentaries = response;
       this.documentaries.forEach((documentary) => {
+        // With this I solve the includes error
+        // but still I can generate the favoriteMovie view inside of user-profile
+        //if (this.favoriteDocumentary.includes(documentary._id))   
         if (this.favoriteDocumentaryId.includes(documentary._id))
           this.favoriteDocumentary.push(documentary);
       });
@@ -78,18 +81,18 @@ export class UserProfileComponent implements OnInit {
     director: string, 
     genre: string
     ): void {
-      this.dialog.open(MovieDescriptionComponent, {
-        data: { title, imagePath, description, director, genre },
-        width: '400px',
-      })
-    }
+    this.dialog.open(MovieDescriptionComponent, {
+      data: { title, imagePath, description, director, genre },
+      width: '400px',
+    })
+  }
 
   /**
   * Function to open dialog showing genre dialog
   * @param name
   * @param description
   */
-   openGenre(name: string, description: string): void {
+  openGenre(name: string, description: string): void {
     this.dialog.open(MovieGenreComponent, {
       data: { name, description },
       width: '400px'
@@ -97,13 +100,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   /**
-   * Function to open dialog showing director dialog
-   * @param name
-   * @param bio
-   * @param birth
-   * @param death
-   */
-   openDirector(name: string, bio: string, birth: string, death: string): void {
+  * Function to open dialog showing director dialog
+  * @param name
+  * @param bio
+  * @param birth
+  * @param death
+  */
+  openDirector(name: string, bio: string, birth: string, death: string): void {
     this.dialog.open(MovieDirectorComponent, {
       data: { name, bio, birth, death },
       width: '350px'
@@ -120,14 +123,14 @@ export class UserProfileComponent implements OnInit {
       this.fetchApiDataUser.getUser().subscribe((response: any) => {
         this.favoriteDocumentaryId = response.favoriteDocumentary;
 
-       /* if (this.favoriteDocumentaryId.length === 0) {
+       if (this.favoriteDocumentary.length === 0) {
           let noFavorites = document.querySelector(
             '.no-favorites'
           ) as HTMLDivElement;
           noFavorites.innerHTML = "You don't have any favorite documentary!";
-        }*/
+        }
 
-        return this.favoriteDocumentaryId;
+        //return this.favoriteDocumentaryId;
       });
     }
     setTimeout(() => {
@@ -161,6 +164,7 @@ export class UserProfileComponent implements OnInit {
     }
     return this.favoriteDocumentaryId.push(id);
   }
+  
 
   /**
   * Function that deletes a movie from user's list of favorites.
@@ -174,7 +178,7 @@ export class UserProfileComponent implements OnInit {
   deleteFavoriteMovies(id: string, Title: string, i: number): void {
     this.fetchApiDataDeleteFavorite
       .deleteFavoriteMovie(id)
-      .subscribe((resp: any) => {
+      .subscribe((response: any) => {
         this.snackBar.open(
           `${Title} has been removed from your favorites.`,
           'OK',
@@ -183,7 +187,7 @@ export class UserProfileComponent implements OnInit {
             verticalPosition: 'top',
           }
         );
-        console.log(resp);
+        console.log(response);
 
         let cards = document.querySelectorAll('.card');
         let tempCards = Array.from(cards);
@@ -222,10 +226,10 @@ export class UserProfileComponent implements OnInit {
         });
         setTimeout(
           () =>
-            this.router.navigate(['user']).then(() => {
+            this.router.navigate(['profile']).then(() => {
               window.location.reload();
             }),
-          1500
+          1000
         );
       },
       (result) => {

@@ -2,15 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-//import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {
-  //EditUserService,
   GetAllDocumentariesService,
   GetUserService,
   AddFavoriteMovieService,
-  //GetFavoriteMoviesService,
-  //DeleteUserService,
   DeleteFavoriteMovieService,
 } from '../fetch-api-data.service';
 
@@ -35,8 +32,9 @@ export class MovieCardComponent implements OnInit {
     public fetchApiDataFavoriteMovies: AddFavoriteMovieService,
     public fetchApiDataDeleteFavorite: DeleteFavoriteMovieService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
-  ) { }
+    public snackBar: MatSnackBar,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.getDocumentaries();
@@ -107,8 +105,8 @@ export class MovieCardComponent implements OnInit {
   getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     if (user) {
-      this.fetchApiDataUser.getUser().subscribe((resp: any) => {
-        this.favoriteDocumentaryId = resp.FavoriteDocumentary;
+      this.fetchApiDataUser.getUser().subscribe((response: any) => {
+        this.favoriteDocumentaryId = response.FavoriteDocumentary;
         return this.favoriteDocumentaryId;
       });
     }
@@ -130,7 +128,7 @@ export class MovieCardComponent implements OnInit {
       return this.favoriteDocumentaryId.splice(index, 1);
     } else {
       this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
-        this.snackBar.open('The documentary has been added to your favorites.', 'OK', {
+        this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
           duration: 3000,
           verticalPosition: 'top',
         });
@@ -143,7 +141,7 @@ export class MovieCardComponent implements OnInit {
   * Function that adds movie to user's list of favorites
   * @param id type: number - Movie ID
   * @param Title type: string - Movie Title
-  *//*
+  */
  addToFavorites(id: string, Title: string): void {
   this.fetchApiDataFavoriteMovies.addFavoriteMovie(id).subscribe((resp: any) => {
     this.snackBar.open(`${Title} has been added to your favorites.`, 'OK', {
@@ -160,7 +158,7 @@ export class MovieCardComponent implements OnInit {
   setTimeout(() => {
     this.getDocumentaries();
   }, 200);
-}*/
+}
 
  /**
    * Function to delete a movie from user's list of favorites

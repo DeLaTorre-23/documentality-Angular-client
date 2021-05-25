@@ -77,13 +77,11 @@
   </section>
   <section>
     <h2 class="favorite-movies-heading">My Favorites Documentaries</h2>
-    <div class="no-favorites" *ngIf="favoriteDocumentary.length === 0">
-      You do not have any favorite movies
-    </div>
+    <div class="no-favorites"></div>
     <div class="container">
       <mat-card
-        *ngFor="let documentary of favoriteDocumentary"
-        class="wrap-container"
+        *ngFor="let documentary of favoriteDocumentary; let i = index"
+        class="card active"
       >
         <mat-card-header class="card-header">
           <button
