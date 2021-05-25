@@ -1,7 +1,6 @@
 // src/app/nav-bar/nav-bar.component.ts
 import { Component, OnInit, Renderer2  } from '@angular/core';
 import { Router } from '@angular/router';
-// This import brings in the API calls we created in 6.2
 
 import { FormControl } from '@angular/forms';
 // This import is used to display notifications back to the user

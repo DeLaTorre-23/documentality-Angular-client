@@ -121,7 +121,7 @@ export class UserProfileComponent implements OnInit {
     const user = localStorage.getItem('user');
     if (user) {
     const user = localStorage.getItem('user');
-      this.fetchApiDataUser.getUser(user).subscribe((response: any) => {
+      this.fetchApiDataUser.getUser().subscribe((response: any) => {
         this.favoriteDocumentaryId = response.favoriteDocumentary;
        if (this.favoriteDocumentary.length === 0) {
           let noFavorites = document.querySelector(
@@ -142,13 +142,22 @@ export class UserProfileComponent implements OnInit {
   * @param id
   * @returns
   */
-  onToggleFavoriteMovie(id: string, Title: string): any {
+  onToggleFavoriteMovie(id: string, Title: string, i: number): any {
     if (this.favoriteDocumentaryId.includes(id)) {
       this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
         this.snackBar.open(`${Title} has been removed from your favorites.`, 'OK', {
           duration: 3000,
           verticalPosition: 'top',
         });
+        console.log(resp);
+
+        let cards = document.querySelectorAll('.card');
+        let tempCards = Array.from(cards);
+
+        tempCards[i].classList.remove('active');
+        tempCards[i].classList.add('delete');
+
+        this.checkNoFavorites();
       });
       const index = this.favoriteDocumentaryId.indexOf(id);
       return this.favoriteDocumentaryId.splice(index, 1);

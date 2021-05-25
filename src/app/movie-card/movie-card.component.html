@@ -1,7 +1,10 @@
 <app-nav-bar></app-nav-bar>
 <!-- src/app/movie-card/movie-card.component.html -->
 <div class="main-wrap">
-  <mat-card *ngFor="let documentary of documentaries" class="wrap-container">
+  <mat-card
+    *ngFor="let documentary of documentaries"
+    class="wrap-container card active"
+  >
     <mat-card-header class="card-header">
       <button
         #tooltip="matTooltip"
@@ -14,14 +17,11 @@
         <mat-icon class="favorite-icon">
           <span
             *ngIf="
-              favoriteDocumentaryId.includes(
-                documentary._id,
-                documentary.Title
-              );
+              favoriteDocumentaryId.includes(documentary._id);
               else elseBlock
             "
-            >star</span
-          >
+            >star
+          </span>
           <ng-template #elseBlock>star_border</ng-template>
         </mat-icon>
       </button>

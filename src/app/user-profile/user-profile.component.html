@@ -90,7 +90,9 @@
             matTooltipPosition="above"
             mat-icon-button
             aria-label="Adds documentary to user's list of favorites"
-            (click)="onToggleFavoriteMovie(documentary._id, documentary.Title)"
+            (click)="
+              onToggleFavoriteMovie(documentary._id, documentary.Title, i)
+            "
           >
             <mat-icon class="favorite-icon">
               <span
@@ -100,7 +102,6 @@
                 "
                 >star
               </span>
-
               <ng-template #elseBlock>star_border</ng-template>
             </mat-icon>
           </button>
