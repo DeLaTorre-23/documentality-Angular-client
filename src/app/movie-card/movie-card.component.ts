@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
 import {
   GetAllDocumentariesService,
@@ -32,12 +31,12 @@ export class MovieCardComponent implements OnInit {
     public fetchApiDataDeleteFavorite: DeleteFavoriteMovieService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    private router: Router,
+  
   ) {}
 
   ngOnInit(): void {
     this.getDocumentaries();
-    
+    this.getFavoriteMovies();
   }
 
   /**
@@ -99,19 +98,16 @@ export class MovieCardComponent implements OnInit {
 
   /**
   * Function to get user's favorite movies
-  * @returns favoriteMovieIDs - IDs of user's favorite movies
+  * @returns favoriteDocumentaryId - IDs of user's favorite movies
   */
   getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     if (user) {
       this.fetchApiDataUser.getUser().subscribe((response: any) => {
-        this.favoriteDocumentaryId = response.FavoriteDocumentary;
+        this.favoriteDocumentaryId = response.FavoriteList;
         return this.favoriteDocumentaryId;
       });
     }
-    setTimeout(() => {
-      this.getDocumentaries();
-    }, 100);
   }
   
   onToggleFavoriteMovie(id: string, Title: string): any {

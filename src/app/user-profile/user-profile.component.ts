@@ -61,7 +61,7 @@ export class UserProfileComponent implements OnInit {
         // With this I solve the includes error
         // but still I can't generate the favoriteMovie view inside of user-profile
         //if (this.favoriteDocumentary.includes(documentary._id))   
-        if (this.favoriteDocumentary.includes(documentary._id))
+        if (this.favoriteDocumentaryId.includes(documentary._id))
           this.favoriteDocumentary.push(documentary);
       });
       return this.favoriteDocumentaryId;
@@ -117,19 +117,13 @@ export class UserProfileComponent implements OnInit {
   * Function to get user's favorite movies
   * @returns favoriteMovieIDs - IDs of user's favorite movies
   */
-  getFavoriteMovies(): void {
+   getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     if (user) {
     const user = localStorage.getItem('user');
       this.fetchApiDataUser.getUser().subscribe((response: any) => {
-        this.favoriteDocumentaryId = response.favoriteDocumentary;
-       if (this.favoriteDocumentary.length === 0) {
-          let noFavorites = document.querySelector(
-            '.no-favorites'
-          ) as HTMLDivElement;
-          noFavorites.innerHTML = "You don't have any favorite documentary!";
-        }
-        return this.favoriteDocumentaryId;
+        this.favoriteDocumentaryId = response.FavoriteList;
+        console.log(this.favoriteDocumentaryId);
       });
     }
     setTimeout(() => {
