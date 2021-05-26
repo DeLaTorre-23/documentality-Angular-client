@@ -6,7 +6,6 @@ import { FormControl } from '@angular/forms';
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle'; 
-
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -17,20 +16,21 @@ export class NavBarComponent implements OnInit {
   toggleTheme = new FormControl(false);
 
   constructor(
-    private _renderer: Renderer2,
+    private renderer: Renderer2,
     public snackBar: MatSnackBar,
-    public router: Router
-  ) { }
+    public router: Router,
+    public MatSlideToggleModule: MatSlideToggleModule
+  ) {}
 
   // Handles logic for theme toggling
   ngOnInit() {
     this.toggleTheme.valueChanges.subscribe((toggleValue) => {
       if (toggleValue === true) {
-        this._renderer.addClass(document.body, 'dark-theme');
-        this._renderer.removeClass(document.body, 'light-theme');
+        this.renderer.addClass(document.body, 'dark-theme');
+        this.renderer.removeClass(document.body, 'light-theme');
       } else {
-        this._renderer.addClass(document.body, 'light-theme');
-        this._renderer.removeClass(document.body, 'dark-theme');
+        this.renderer.addClass(document.body, 'light-theme');
+        this.renderer.removeClass(document.body, 'dark-theme');
       }
     });
   }
