@@ -1,0 +1,55 @@
+<mat-toolbar color="primary" class="navbar" role="heading">
+  <mat-toolbar-row class="navbar__row">
+    <span
+      class="navbar__brand"
+      aria-label="Button that takes user back to main page"
+      (click)="backToMain()"
+      >Documentality</span
+    >
+    <div class="navbar-icons__container">
+      <mat-slide-toggle
+        [formControl]="toggleTheme"
+        aria-label="Button that toggles app theme between dark and light"
+        #tooltip="matTooltip"
+        matTooltip="Toggle theme"
+        matTooltipPosition="below"
+      >
+      </mat-slide-toggle>
+      <span *ngIf="isAuth()">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Opens menu with links to profile or logout"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button
+            mat-menu-item
+            (click)="toDocumentaries()"
+            aria-label="button that takes user to movies page"
+          >
+            <mat-icon>movie</mat-icon>
+            <span>Documentaries</span>
+          </button>
+          <button
+            (click)="openProfile()"
+            mat-menu-item
+            aria-label="button that takes user to profile page"
+          >
+            <mat-icon>person_pin</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button
+            mat-menu-item
+            (click)="logoutUser()"
+            aria-label="button that logs user out"
+          >
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </span>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

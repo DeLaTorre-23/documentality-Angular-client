@@ -1,0 +1,76 @@
+<app-nav-bar></app-nav-bar>
+<div class="main-wrap">
+  <mat-card
+    *ngFor="let documentary of documentaries"
+    class="wrap-container card active"
+  >
+    <mat-card-header class="card-header">
+      <button
+        #tooltip="matTooltip"
+        matTooltip="Toggle favorite documentary"
+        matTooltipPosition="above"
+        mat-icon-button
+        aria-label="Adds documentary to user's list of favorites"
+        (click)="onToggleFavoriteMovie(documentary._id, documentary.Title)"
+      >
+        <mat-icon class="favorite-icon">
+          <span
+            *ngIf="
+              favoriteDocumentaryId.includes(documentary._id);
+              else elseBlock
+            "
+            >star
+          </span>
+          <ng-template #elseBlock>star_border</ng-template>
+        </mat-icon>
+      </button>
+      <mat-card-title class="card-title">
+        {{ documentary.Title }}
+      </mat-card-title>
+    </mat-card-header>
+    <div class="img-container">
+      <img
+        src="{{ documentary.ImagePath }}"
+        alt="{{ documentary.Title }}"
+        class="card-img"
+      />
+    </div>
+    <mat-card-actions class="buttons">
+      <button
+        mat-raised-button
+        (click)="
+          openDetails(
+            documentary.Title,
+            documentary.ImagePath,
+            documentary.Description,
+            documentary.Genre.Name,
+            documentary.Director.Name
+          )
+        "
+      >
+        Details
+      </button>
+      <button
+        mat-raised-button
+        (click)="
+          openGenre(documentary.Genre.Name, documentary.Genre.Description)
+        "
+      >
+        Genre
+      </button>
+      <button
+        mat-raised-button
+        (click)="
+          openDirector(
+            documentary.Director.Name,
+            documentary.Director.Bio,
+            documentary.Director.Birth,
+            documentary.Director.Death
+          )
+        "
+      >
+        Director
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

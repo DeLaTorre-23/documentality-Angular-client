@@ -1,0 +1,45 @@
+.body {
+  background-color: red;
+}
+.main-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  margin-bottom: 16px;
+  background-color: rgb(236, 241, 255);
+  border: 2px solid lavender;
+
+  .close-icon-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  .form-container {
+    //display: flex;
+    flex-direction: column;
+    //text-align: center;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.mat-dialog-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+// Tablet
+@media all and (min-width: 768px) {
+  .registration__card {
+    width: 400px;
+  }
+}

@@ -1,0 +1,29 @@
+.navbar__brand {
+  font-style: italic;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.navbar__row {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1650px;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.navbar-icons__container {
+  display: flex;
+  align-items: center;
+}
+
+.sub-navbar__row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    width: 75px;
+    margin: 0 16px;
+  }
+}

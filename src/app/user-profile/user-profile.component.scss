@@ -1,0 +1,191 @@
+.update-container {
+  text-align: center;
+  width: 75%;
+  margin: 75px auto 10px;
+  background-color: none;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-shadow: 0px 0px 5px #334195;
+  margin-bottom: 50px;
+
+  .update-header {
+    justify-content: center;
+    //color: #334195;
+    font-weight: bold;
+
+    .update-title {
+      margin-bottom: 25px;
+      font-size: 24px;
+    }
+  }
+
+  .mat-form-field {
+    margin-right: 15px;
+    margin-bottom: 25px;
+  }
+
+  .update-button-container {
+    margin-top: -20px;
+  }
+
+  .update-button {
+    color: white;
+    background-color: black;
+    font-size: 14px;
+    height: 25px;
+    line-height: 14px;
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  .update-button:hover {
+    cursor: pointer;
+    background-color: #cc0000;
+  }
+}
+
+/*
+.favorite-movies__container {
+  padding: 0 24px;
+  margin: 0 auto;
+  margin-top: 40px;
+  max-width: 1350px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, min-max(280px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+  grid-auto-rows: 500px;
+  grid-auto-flow: dense;
+}
+*/
+
+.wrap-container {
+  text-align: center;
+  width: 325px;
+  margin: 25px auto;
+  box-shadow: 0px 0px 5px lavender;
+
+  .card-header {
+    justify-content: center;
+
+    .card-title {
+      font-size: 24px;
+      color: #3765c2;
+      padding: 5px;
+    }
+
+    .favorite-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      color: #ebdd24;
+      transition: 0.3s;
+    }
+
+    .favorite-icon:hover {
+      cursor: pointer;
+      transform: scaleX(1.2) scaleY(1.2);
+    }
+  }
+
+  .card-img {
+    width: 90%;
+    margin: auto;
+    box-shadow: 0px 0px 5px black;
+  }
+
+  .buttons {
+    text-align: center;
+    margin: 10px 0px 0px 10px;
+  }
+
+  .buttons > button {
+    color: white;
+    background-color: #3765c2;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+  }
+
+  .buttons > button:hover {
+    color: black;
+    background-color: lavender;
+  }
+}
+
+.favorite-movies-heading {
+  color: #3765c2;
+  font-size: 28px;
+  text-align: center;
+}
+
+.no-favorites {
+  text-align: center;
+  font-size: 16px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  margin-top: 75px;
+}
+
+.card {
+  text-align: center;
+  width: 325px;
+  margin: 25px auto;
+  box-shadow: 0px 0px 5px #dbca74;
+}
+
+.card > mat-icon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #cc0000;
+  transition: all 0.3s ease-in-out;
+}
+
+.card > mat-icon:hover {
+  cursor: pointer;
+  transform: scaleX(0.8) scaleY(0.8);
+}
+
+.card-header {
+  justify-content: center;
+}
+
+.card-title {
+  font-size: 24px;
+  color: #3765c2;
+  padding: 5px;
+}
+
+.card-image {
+  width: 90%;
+  margin: auto;
+  box-shadow: 0px 0px 5px black;
+}
+
+.buttons {
+  text-align: center;
+  margin: 10px 0px 0px 10px;
+}
+
+.buttons > button {
+  color: white;
+  background-color: #3765c2;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+.buttons > button:hover {
+  color: black;
+  background-color: #dbca74;
+}
+
+.delete {
+  display: none;
+}

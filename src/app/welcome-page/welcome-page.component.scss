@@ -1,0 +1,64 @@
+/*
+#Palette-COLORS
+color: #020887;
+color: #334195;
+color: #647AA3;
+color: #95B2B0;
+color: #C6EBBE;
+*/
+
+.main-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  text-align: center;
+  height: auto;
+  //margin: 15px;
+  margin-top: 150px;
+  // align-content: space-between;
+
+  /*.container {
+    height: auto;
+    margin: 15px;
+    margin-top: 150px;
+    align-content: space-between;
+    align-items: center;
+    background-color: rgb(236, 241, 255);
+  }*/
+
+  .welcome__title {
+    //margin: 15px;
+    //margin-top: 20px;
+    align-items: center;
+
+    h1 {
+      line-height: normal;
+      font-size: 40px;
+      text-align: center;
+      font-weight: 600;
+
+      .brand {
+        margin-top: 15px;
+        font-style: italic;
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    // margin: 15px;
+    justify-content: space-around;
+    align-content: center;
+    // margin-top: 15px;
+
+    .mat-raised-button {
+      width: 100px;
+      display: flex;
+      margin: 15px;
+      justify-content: space-around;
+      align-content: center;
+    }
+  }
+}
