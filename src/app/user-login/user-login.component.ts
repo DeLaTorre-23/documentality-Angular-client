@@ -1,18 +1,12 @@
-// src/app/user-registration-form/user-login.component.ts
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Angular Material Elements
-// You'll use this import to close the dialog on success
-import { MatDialogRef } from '@angular/material/dialog';
-// This import is used to display notifications back to the user
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog'; // You'll use this import to close the dialog on success
+import { MatSnackBar } from '@angular/material/snack-bar'; // This import is used to display notifications back to the user
 
-// This import brings in the API calls
+// API calls
 import { UserLoginService } from '../fetch-api-data.service';
-
-
-
 
 @Component({
   selector: 'app-user-login',
@@ -34,15 +28,14 @@ export class UserLoginComponent implements OnInit {
     public dialogRef: MatDialogRef<UserLoginComponent>,
     public snackBar: MatSnackBar,
     public router: Router
-  ) { }
+  ) {}
     
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   /**
-  *  This is the function responsible for sending the form inputs to the backend
-  * Its checks user login credentials against the server
-  * sends back a token if credentials are valid
+  * This is the function responsible for sending the form inputs to the backend.
+  * Its checks user login credentials against the server,
+  * sends back a token if credentials are valid,
   * stores user and token in localStorage for later use
   */
   userLogin(): void {
@@ -63,7 +56,6 @@ export class UserLoginComponent implements OnInit {
           console.log(response);
           this.snackBar.open('response', 'OK', {
             duration: 3000,
-          
           });
         })
       }

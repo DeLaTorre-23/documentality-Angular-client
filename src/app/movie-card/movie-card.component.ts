@@ -1,8 +1,10 @@
-// src/app/movie-card/movie-card.component.ts
 import { Component, OnInit } from '@angular/core';
+
+// Angular Materials
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+// API calls
 import {
   GetAllDocumentariesService,
   GetUserService,
@@ -10,6 +12,7 @@ import {
   DeleteFavoriteMovieService,
 } from '../fetch-api-data.service';
 
+// Components
 import { MovieDescriptionComponent } from '../movie-description/movie-description.component';
 import { MovieGenreComponent } from '../movie-genre/movie-genre.component';
 import { MovieDirectorComponent } from '../movie-director/movie-director.component';
@@ -20,10 +23,19 @@ import { MovieDirectorComponent } from '../movie-director/movie-director.compone
   styleUrls: ['./movie-card.component.scss']
 })
 export class MovieCardComponent implements OnInit {
+  
   documentaries: any[] = [];
   favoriteDocumentary: any[] = [];
   favoriteDocumentaryId: any[] = [];
   
+  /**
+  * @param fetchApiData
+  * @param fetchApiDataUser
+  * @param fetchApiDataFavoriteMovies
+  * @param fetchApiDataDeleteFavorite
+  * @param dialog
+  * @param snackBar
+  */
   constructor(
     public fetchApiData: GetAllDocumentariesService,
     public fetchApiDataUser: GetUserService,
@@ -31,16 +43,18 @@ export class MovieCardComponent implements OnInit {
     public fetchApiDataDeleteFavorite: DeleteFavoriteMovieService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-  
   ) {}
 
+  /**
+  * getDocumentaries() & getFavoriteMovies() function are run on initialization
+  */
   ngOnInit(): void {
     this.getDocumentaries();
     this.getFavoriteMovies();
   }
 
   /**
-  * Function that retrieves list of all movies from database
+  * Retrieves list of all movies from database
   * @returns documentaries
   */
   getDocumentaries(): void {
@@ -52,55 +66,10 @@ export class MovieCardComponent implements OnInit {
   }
 
   /**
-  * Function to open dialog showing documentary details
-  * @param Description type: string - Movie description
-  * @param Image type: string - Path to movie image
-  * @param Title type: string - Movie title
+  * Get user's favorite documentaries
+  * @returns favoriteDocumentaryId - IDs of user's favorite documentaries
   */
-  openDetails(
-  title: string, 
-  imagePath: string, 
-  description: string, 
-  director: string, 
-  genre: string
-  ): void {
-    this.dialog.open(MovieDescriptionComponent, {
-      data: { title, imagePath, description, director, genre },
-      width: '400px',
-    });
-  }
-
-  /**
-  * Function to open dialog showing genre dialog
-  * @param name
-  * @param description
-  */
-  openGenre(name: string, description: string): void {
-    this.dialog.open(MovieGenreComponent, {
-      data: { name, description },
-      width: '400px'
-    });
-  }
-
-  /**
-   * Function to open dialog showing director dialog
-   * @param name
-   * @param bio
-   * @param birth
-   * @param death
-   */
-   openDirector(name: string, bio: string, birth: string, death: string): void {
-    this.dialog.open(MovieDirectorComponent, {
-      data: { name, bio, birth, death },
-      width: '350px'
-    });
-  }
-
-  /**
-  * Function to get user's favorite movies
-  * @returns favoriteDocumentaryId - IDs of user's favorite movies
-  */
-  getFavoriteMovies(): void {
+   getFavoriteMovies(): void {
     const user = localStorage.getItem('user');
     if (user) {
       this.fetchApiDataUser.getUser().subscribe((response: any) => {
@@ -110,6 +79,11 @@ export class MovieCardComponent implements OnInit {
     }
   }
   
+  /**
+  * Adds or removes documentary from user's favorite list
+  * @param id type: string - Documentary Id
+  * @param title type: string - Documentary Title
+  */
   onToggleFavoriteMovie(id: string, Title: string): any {
     if (this.favoriteDocumentaryId.includes(id)) {
       this.fetchApiDataDeleteFavorite.deleteFavoriteMovie(id).subscribe((resp: any) => {
@@ -130,6 +104,53 @@ export class MovieCardComponent implements OnInit {
     }
     return this.favoriteDocumentaryId.push(id);
   }
+
+  /**
+  * Opens dialog showing documentary details
+  * @param title type: string - Documentary title
+  * @param image type: string - Path to movie image
+  * @param description type: string - Documentary description
+  * @param director type: string - Director of the documentary
+  * @param genre type: string - Genre of the documentary
+  */
+  openDetails(
+  title: string, 
+  imagePath: string, 
+  description: string, 
+  director: string, 
+  genre: string
+  ): void {
+    this.dialog.open(MovieDescriptionComponent, {
+      data: { title, imagePath, description, director, genre },
+      width: '400px',
+    });
+  }
+
+  /**
+  * Opens dialog showing genre information
+  * @param name type: string - Name of genre
+  * @param description type: string - Genre description
+  */
+  openGenre(name: string, description: string): void {
+    this.dialog.open(MovieGenreComponent, {
+      data: { name, description },
+      width: '400px'
+    });
+  }
+
+  /**
+  * Opens dialog showing director information
+  * @param name  type: string - Director's name
+  * @param bio  type: string - Director's biography
+  * @param birth  type: string - Director's birth date
+  * @param death  type: string - Director´s death date
+  */
+   openDirector(name: string, bio: string, birth: string, death: string): void {
+    this.dialog.open(MovieDirectorComponent, {
+      data: { name, bio, birth, death },
+      width: '350px'
+    });
+  }  
 }
 
 

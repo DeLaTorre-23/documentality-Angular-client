@@ -1,5 +1,4 @@
 <app-nav-bar></app-nav-bar>
-<!-- src/app/movie-card/movie-card.component.html -->
 <div class="main-wrap">
   <mat-card
     *ngFor="let documentary of documentaries"
@@ -25,7 +24,6 @@
           <ng-template #elseBlock>star_border</ng-template>
         </mat-icon>
       </button>
-
       <mat-card-title class="card-title">
         {{ documentary.Title }}
       </mat-card-title>

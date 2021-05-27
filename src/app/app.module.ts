@@ -7,7 +7,7 @@ import{ HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 
-// Angular Materials Elements
+// Angular Materials
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,7 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -36,7 +36,6 @@ import { MovieGenreComponent } from './movie-genre/movie-genre.component';
 import { MovieDirectorComponent } from './movie-director/movie-director.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
-
 const appRoutes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
   { path: 'welcome', component: WelcomePageComponent },
@@ -44,6 +43,9 @@ const appRoutes: Routes = [
   { path: 'profile', component: UserProfileComponent },
 ];
 
+/**
+* Services
+*/
 @NgModule({
   declarations: [
     AppComponent,

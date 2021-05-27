@@ -1,11 +1,11 @@
-// src/app/nav-bar/nav-bar.component.ts
-import { Component, OnInit, Renderer2  } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FormControl } from '@angular/forms';
-// This import is used to display notifications back to the user
+// Angular Materials
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle'; 
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -15,6 +15,12 @@ export class NavBarComponent implements OnInit {
   
   toggleTheme = new FormControl(false);
 
+  /**
+  * @param renderer
+  * @param MatSlideToggleModule
+  * @param snackBar
+  * @param router
+  */
   constructor(
     private renderer: Renderer2,
     public snackBar: MatSnackBar,
@@ -22,7 +28,7 @@ export class NavBarComponent implements OnInit {
     public MatSlideToggleModule: MatSlideToggleModule
   ) {}
 
-  // Handles logic for theme toggling
+  
   ngOnInit() {
     this.toggleTheme.valueChanges.subscribe((toggleValue) => {
       if (toggleValue === true) {
@@ -35,7 +41,9 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  // Handles conditional rendering of sub-nav bar
+  /**
+  * Handles conditional rendering of sub-nav bar
+  */
   isAuth() {
     if (localStorage.getItem('token') !== null) {
       return true;
@@ -45,7 +53,7 @@ export class NavBarComponent implements OnInit {
   }
 
   /**
-  * Function clears username and token from local storage to log out user
+  * Clears username and token from local storage to log out user
   */
   logoutUser(): void {
     localStorage.clear(),
@@ -56,12 +64,16 @@ export class NavBarComponent implements OnInit {
     });
   }
   
-  // Navigates user to profile-view
+  /**
+  * Navigates user to profile-view from the menu bar
+  */
   openProfile(): void {
     this.router.navigate(['/profile']);
   }
-
-  // Navbar logo takes logged in user to movies page or welcome page if not logged in
+  
+  /**
+  * Navbar logo takes logged in user to movies page or welcome page if not logged in
+  */
   backToMain(): void {
     if (localStorage.getItem('token') !== null) {
       this.router.navigate(['/documentaries']);
@@ -70,8 +82,10 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+  /**
+  * Navigates user to documentaries from the menu bar
+  */
   toDocumentaries(): void {
     this.router.navigate(['/documentaries']);
   }
-
 }

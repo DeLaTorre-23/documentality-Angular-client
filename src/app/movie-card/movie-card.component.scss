@@ -42,19 +42,19 @@
   .buttons {
     text-align: center;
     margin: 10px 0px 0px 10px;
-  }
 
-  .buttons > button {
-    color: white;
-    background-color: #3765c2;
-    font-size: 14px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    transition: 0.3s;
-  }
+    button {
+      color: white;
+      background-color: #3765c2;
+      font-size: 14px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
 
-  .buttons > button:hover {
-    color: black;
-    background-color: lavender;
+    button:hover {
+      color: black;
+      background-color: lavender;
+    }
   }
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-// Used to display notifications back to the user
+
+// Angular Materials
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+// API calls
 import {
   GetAllDocumentariesService,
   GetUserService,
@@ -13,6 +15,8 @@ import {
   DeleteUserService,
   DeleteFavoriteMovieService,
 } from '../fetch-api-data.service';
+
+// Components
 import { MovieDescriptionComponent } from '../movie-description/movie-description.component';
 import { MovieGenreComponent } from '../movie-genre/movie-genre.component';
 import { MovieDirectorComponent } from '../movie-director/movie-director.component';
@@ -23,11 +27,25 @@ import { MovieDirectorComponent } from '../movie-director/movie-director.compone
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+  
   @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
+  
   documentaries: any[] = [];
   favoriteDocumentary: any[] = [];
   favoriteDocumentaryId: any[] = [];
 
+  /**
+  * @param fetchApiDataAllMovies
+  * @param fetchApiDataUser
+  * @param fetchApiDataFavoriteMovies
+  * @param fetchApiData
+  * @param fetchApiDataAddFavoriteMovies
+  * @param fetchApiDataDeleteUser
+  * @param fetchApiDataDeleteFavorite
+  * @param dialog
+  * @param snackBar
+  * @param router
+  */
   constructor(
     public fetchApiDataAllMovies: GetAllDocumentariesService,
     public fetchApiDataUser: GetUserService,
@@ -41,38 +59,37 @@ export class UserProfileComponent implements OnInit {
     private router: Router
   ) {}
 
+  /**
+  * Call function on page load to retrieve a list of user's favorite movies
+  */
   ngOnInit(): void {
-    /**
-     * Call function on page load to retrieve a list of user's favorite movies
-     */
     this.getFavoriteMovies();
   }
   
   /**
-  * Function that retrieves list of all movies from database
-  * then checks for favorite movie ids against this list.
-  * If a match, movie is pushed to favoriteMovies array.
-  * @returns favoriteMovies
+  * It retrieves a list of all documentaries from database
+  * then checks for favorite documentaries ids against this list.
+  * If a match, documentary is pushed to favoriteDocumentaryId array.
+  * @returns favoriteDocumentary
   */
   getDocumentaries(): void {
     this.fetchApiDataAllMovies.getAllDocumentaries().subscribe((response: any) => {
       this.documentaries = response;
       this.documentaries.forEach((documentary) => {
-        // With this I solve the includes error
-        // but still I can't generate the favoriteMovie view inside of user-profile
-        //if (this.favoriteDocumentary.includes(documentary._id))   
         if (this.favoriteDocumentaryId.includes(documentary._id))
           this.favoriteDocumentary.push(documentary);
       });
-      return this.favoriteDocumentaryId;
+      return this.favoriteDocumentary;
     });
   }
 
   /**
-  * Function to open dialog showing documentary details
-  * @param Description type: string - Movie description
-  * @param Image type: string - Path to movie image
-  * @param Title type: string - Movie title
+  * Opens dialog showing documentary details
+  * @param title type: string - Documentary title
+  * @param image type: string - Path to movie image
+  * @param description type: string - Documentary description
+  * @param director type: string - Director of the documentary
+  * @param genre type: string - Genre of the documentary
   */
   openDetails(
     title: string, 
@@ -88,9 +105,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   /**
-  * Function to open dialog showing genre dialog
-  * @param name
-  * @param description
+  * Opens dialog showing genre information
+  * @param name type: string - Name of genre
+  * @param description type: string - Genre description
   */
   openGenre(name: string, description: string): void {
     this.dialog.open(MovieGenreComponent, {
@@ -100,11 +117,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   /**
-  * Function to open dialog showing director dialog
-  * @param name
-  * @param bio
-  * @param birth
-  * @param death
+  * Opens dialog showing director information
+  * @param name  type: string - Director's name
+  * @param bio  type: string - Director's biography
+  * @param birth  type: string - Director's birth date
+  * @param death  type: string - Director´s death date
   */
   openDirector(name: string, bio: string, birth: string, death: string): void {
     this.dialog.open(MovieDirectorComponent, {
@@ -114,7 +131,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   /**
-  * Function to get user's favorite movies
+  * Get user's favorite documentaries list
   * @returns favoriteMovieIDs - IDs of user's favorite movies
   */
    getFavoriteMovies(): void {
@@ -132,9 +149,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   /**
-  * Adds or removes movie from user's list of favorites
-  * @param id
-  * @returns
+  * Adds or removes documentary from user's favorite list
+  * @param id type: string - Documentary Id
+  * @param title type: string - Documentary Title
   */
   onToggleFavoriteMovie(id: string, Title: string, i: number): any {
     if (this.favoriteDocumentaryId.includes(id)) {
@@ -167,7 +184,7 @@ export class UserProfileComponent implements OnInit {
   }
  
   /**
-  * Function that checks whether a user no longer has favorite movies after
+  * Function that checks whether a user no longer has favorite documentaries after
   * a favorite is deleted. If no cards remain with the "active" class, text
   * is displayed to let the user know they do not have any favorites.
   */
@@ -179,8 +196,8 @@ export class UserProfileComponent implements OnInit {
   }  
 
   /**
-   * Function that allows the user to update their profile information
-   */
+  * Allows the user to update their profile information
+  */
   editUser(): void {
     this.fetchApiData.editUser(this.userData).subscribe(
       (result) => {
@@ -209,7 +226,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   /**
-  * Function that allows the user to delete their profile
+  * Allows the user to delete their profile
   */
   deleteUser(): void {
     this.fetchApiDataDeleteUser.deleteUser().subscribe(
@@ -222,16 +239,14 @@ export class UserProfileComponent implements OnInit {
             verticalPosition: 'top',
           }
         );
-        // Logs user out
-        localStorage.clear();
+        localStorage.clear(); // Logs user out
       },
       (result) => {
         this.snackBar.open(result, 'OK', {
           duration: 3000,
           verticalPosition: 'top',
         });      
-        // Refreshes and redirects to welcome view
-        this.router.navigate(['/welcome']).then(() => {
+        this.router.navigate(['/welcome']).then(() => { // Refreshes and redirects to welcome view
           window.location.reload();
         });
       }

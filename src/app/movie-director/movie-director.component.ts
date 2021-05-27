@@ -11,8 +11,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class MovieDirectorComponent implements OnInit {
 
  /**
-  * Injects director name, bio, birth and death into class
-  * from movie-card for use in director-dialog
+  * Injects director's data ( name, biography, birth date and death date ) 
+  * into class from movie-card component
   * @param data
   */
   constructor(
@@ -23,7 +23,7 @@ export class MovieDirectorComponent implements OnInit {
       birth: Date;
       death: Date;
     }
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

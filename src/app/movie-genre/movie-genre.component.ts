@@ -11,8 +11,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class MovieGenreComponent implements OnInit {
 
   /**
-  * Injects genre name and description into class
-  * from movie-card for use in genre-dialog
+  * Injects genre data ( name and description ) 
+  * into class from movie-card component
   * @param data
   */
   constructor(
@@ -21,7 +21,7 @@ export class MovieGenreComponent implements OnInit {
       name: string;
       description: string;
     }
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

@@ -9,11 +9,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./movie-description.component.scss']
 })
 export class MovieDescriptionComponent implements OnInit {
- /**
-   * Injects movie title, imagePath, description, director and genre into class
-   * from movie-card to use in details-dialog
-   * @param data
-   */
+  
+  /**
+  * Injects documentary data( title, imagePath, description, director and genre ) 
+  * into class from movie-card component
+  * @param data
+  */
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -23,7 +24,7 @@ export class MovieDescriptionComponent implements OnInit {
       director: string;
       genre: string;
     }
-    ) { }
+    ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

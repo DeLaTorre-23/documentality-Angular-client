@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
+
+// Create angular service to consuming REST API
 import { catchError } from 'rxjs/internal/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
-// Declaring the api url that will provide data for the client app.
+/**
+*  Declaring the api url that will provide data for the client app.
+*/
 const apiUrl = 'https://documentality.herokuapp.com/';
 
-// UserRegistrationService Class allows a user to register a new account.
 @Injectable({
   providedIn: 'root'
 })
 export class UserRegistrationService {
+  // Inject the HttpClient module to the constructor params.
+  // This will provide HttpClient to the entire class, making it available via this.http
   /** 
-  * Inject the HttpClient module to the constructor params.
-  * This will provide HttpClient to the entire class, making it available via this.http
   * @param http
   */
   constructor(private http: HttpClient) {}
+
   /**
   * Making the api call for the user registration endpoint
   * @param userData 
+  * @returns
   */
   public userRegistration(userData: any): Observable<any> {
     // console.log(userData);
@@ -44,20 +48,19 @@ export class UserRegistrationService {
   }
 }
 
-
-/**
-* UserLoginService Class allows a user to log in to their account.
-* @param http
-*/
- @Injectable({
+@Injectable({
   providedIn: 'root',
 })
 export class UserLoginService {
+  /**
+  * @param http
+  */
   constructor(private http: HttpClient) {}
 
   /**
-  * Making the api call to the user login endpoint.
+  * Allows a user to log in to their account.
   * @param userData
+  * @returns
   */
   public userLogin(userData: any): Observable<any> {
     console.log(userData);
@@ -81,18 +84,23 @@ export class UserLoginService {
   }
 }
 
-
-/**
-* GetAllMoviesService Class allows a user to get all movies endpoint.
-* @param http
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class GetAllDocumentariesService {
+  // Inject the HttpClient module to the constructor params.
+  // This will provide HttpClient to the entire class, making it available via this.http
+  /** 
+  * Allows a user to get all documentaries endpoint.
+  * @param http
+  * @returns 
+  */
   constructor(private http: HttpClient) {}
 
-  // Making the api call to get all movies.
+  /**
+  * Allows a user to get all documentaries endpoint.
+  * @returns
+  */
   getAllDocumentaries(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
@@ -127,16 +135,18 @@ export class GetAllDocumentariesService {
   
 }
 
-/**
-* GetSingleMovieService Class returns a single movie by title.
-*/
  @Injectable({
   providedIn: 'root',
 })
 export class GetSingleMovieService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
-
-  // Making the api call to get single movie information.
+  /**
+  * Returns from the Api a single documentary information
+  * @return  
+  */
   getSingleMovie(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
@@ -170,16 +180,19 @@ export class GetSingleMovieService {
   }
 }
 
-/**
-* GetDirectorService Class returns a director View by name.
-*/
+
 @Injectable({
   providedIn: 'root',
 })
 export class GetDirectorService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
-  
-  // Making the api call to get director's information.
+  /**
+  * Returns director's information by name.
+  * @return
+  */
   getDirector(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
@@ -213,16 +226,18 @@ export class GetDirectorService {
   }
 }
 
-/**
-* GetGenreService Class returns a genre View by name.
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class GetGenreService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
-
-  // Making the api call to get genre information.
+  /**
+  * Returns the api call to get genre information.
+  * @return
+  */
   getGenre(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http
@@ -256,16 +271,18 @@ export class GetGenreService {
   }
 }
 
-/**
-* GetUserService returns a user by username.
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class GetUserService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
-
-  // Making the api call to get user information by username.
+  /**
+  * Returns a user's information by username
+  * @returns
+  */
   getUser(): Observable<any> {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
@@ -300,17 +317,18 @@ export class GetUserService {
   }
 }
 
-/**
-* GetFavoriteMoviesService returns a user's favorite movies by username.
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class GetFavoriteMoviesService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
 
   /**
-  * Making the api call to get a user's favorite movies.
+  * Returns a user's favorite movies by username.
+  * @returns
   */
   getFavoriteMovies(): Observable<any> {
     const token = localStorage.getItem('token');
@@ -346,19 +364,17 @@ export class GetFavoriteMoviesService {
   }
 }
 
-/**
-* AddFavoriteMovieService Class adds a movie to the user's list of favorites
-* @param http
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class AddFavoriteMovieService {
-  constructor(private http: HttpClient) {}
-
+  /** 
+  * @param http
+  */
+  constructor(private http: HttpClient) {} 
   /**
-  * Making the api call to add a favorite movie to a user's favorite list.
-  * @param title
+  * Adds a favorite documentary to a user's favorite list.
+  * @param id type: string - Documentary Id
   */
   addFavoriteMovie(id: string): Observable<any> {
     const token = localStorage.getItem('token');
@@ -395,18 +411,17 @@ export class AddFavoriteMovieService {
   }
 }
 
-/**
-* EditUserService Class allows a user to update their information.
-* @param http
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class EditUserService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
 
   /**
-  * Making the api call to edit a user's information.
+  * Allows a user to update their information.
   * @param userData
   */
   editUser(userData: any): Observable<any> {
@@ -443,17 +458,18 @@ export class EditUserService {
   }
 }
 
-/**
-* DeleteUserService Class allows a user to delete their account.
-* @param http
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class DeleteUserService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
-
-  // Making the api call to delete a user.
+  /**
+  * DeleteUserService Class allows a user to delete their account.
+  * @returns
+  */
   deleteUser(): Observable<any> {
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
@@ -462,8 +478,8 @@ export class DeleteUserService {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + token,
       }),
-      // This line prevent that HttpErrorResponse will throw 'unknown identifier' error.
-      responseType: 'text', 
+      responseType: 'text', // This line prevent that HttpErrorResponse will throw 'unknown identifier' error.
+
     })
     .pipe(
       map(this.extractResponseData), 
@@ -490,19 +506,17 @@ export class DeleteUserService {
   }
 }
 
-/**
-* DeleteFavoriteMovieService Class allows a user to remove a movie from their favorite's list
-* @param http
-*/
 @Injectable({
   providedIn: 'root',
 })
 export class DeleteFavoriteMovieService {
+  /** 
+  * @param http
+  */
   constructor(private http: HttpClient) {}
-
   /**
-  * Making the api call to add a movie to a user's list of favorites.
-  * @param title
+  * Allows a user to remove a movie from their favorite's list
+  * @param id type: string - Documentary Id
   */
   deleteFavoriteMovie(id: string): Observable<any> {
     const token = localStorage.getItem('token');
@@ -518,7 +532,6 @@ export class DeleteFavoriteMovieService {
       catchError(this.handleError)
     );
   }
-
   // Non-typed response extraction.
   // private extractResponseData(res: Response | Object): any {
   private extractResponseData(res: Response | Object): Response | Object {

@@ -1,12 +1,13 @@
 .navbar__brand {
   font-style: italic;
   cursor: pointer;
+  font-size: 28px;
 }
 
 .navbar__row {
-  margin: 0 auto;
-  max-width: 1350px;
   display: flex;
+  margin: 0 auto;
+  max-width: 1650px;
   justify-content: space-between;
   padding: 0 24px;
 }

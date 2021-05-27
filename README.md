@@ -1,22 +1,21 @@
 # DocumentalityAngularClient
 
-This is a single-page application build using Angular that is connected to the Documentality backend. Users are able to create an account and browse their favorite documentalities. They can modify account information, add or remove documentaries from their list of favorites, or delete their account.
+This application is build in a single-page using Angular that is connected to the Documentality backend. Users are able to create an account and browse their favorite documentaries. They can modify account information, add or remove documentaries from their list of favorites, or delete their account.
 
-This app is built using the MEAN stack of technlogies, (MongoDB, Angular, Express.js, Node.js). The app uses Angular Material throughout as well.
+This app is built using the MEAN stack of technologies, (MongoDB, Angular, Express.js, Node.js). The app uses Angular Material throughout as well.
 
-A key feature that distinguishes this client from the [React Client](https://github.com/DeLaTorre-23/documentality-Angular-client/) is that the user is able to toggle between light mode and dark mode with a button on the navigation bar. This was a feature that was easier to implement by because of Angular's Material and Theming.
+A key feature that distinguishes this client from the [React Client](https://https://github.com/DeLaTorre-23/Documentality-Client/) is that the user is able to toggle between light mode and dark mode with a button on the navigation bar.
 
 ## Technologies
 
 - Requires [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com)
 - Written with [Angular](https://angular.io)
 - Designed with [Angular Material](https://v7.material.angular.io)
-- Documented with [Typedoc](https://typedoc.org)
+- Documented with [TypeDoc](https://typedoc.org)
 
 ## Angular Details
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.13.
-
 
 ## Development server
 
@@ -24,7 +23,6 @@ To run this project on a development server, run the following command. Navigate
 
 ```
 ng serve
-
 ```
 
 ## Code scaffolding
