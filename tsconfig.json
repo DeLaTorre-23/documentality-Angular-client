@@ -26,10 +26,8 @@
   },
   "typedocOptions": {
     "name": "Documentality-Angular-Client",
-    "mode": "modules",
     "entryPoints": ["src/main.ts"],
     "out": "docs",
-    "includes": ["src/app"],
-    "exclude":
+    "includes": ["src/app"]
   }
 }
